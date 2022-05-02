@@ -1,9 +1,11 @@
 package bg.tu_varna.sit;
 
 import java.util.*;
+
 public class Planet {
     private String name;
     private HashMap<Planet, List<Jedi>> map;
+
     public Planet(String name) {
         this.name = name;
         this.map = new HashMap<Planet, List<Jedi>>();
@@ -18,14 +20,15 @@ public class Planet {
     }
 
     public HashMap<Planet, List<Jedi>> getMap() {
-        map.forEach((k,v) -> {
-            System.out.println( k + "Jedis");
-            System.out.println("\n"+ v +"\n");
+        map.forEach((k, v) -> {
+            System.out.println(k + "Jedis");
+            System.out.println("\n" + v + "\n");
         });
         return map;
     }
-    public void removeJedi(Planet planet, Jedi jedi){
-        map.forEach((k,v)->{
+
+    public void removeJedi(Planet planet, Jedi jedi) {
+        map.forEach((k, v) -> {
             v.remove(jedi);
         });
     }
