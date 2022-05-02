@@ -10,7 +10,12 @@ public class Main {
         Planet planet = new Planet("Corusant");
         planet.addJediToPlanet(planet, vader);
         planet.addJediToPlanet(planet, luke);
+        embo.addJediToPlanet(embo,obi);
+        embo.addJediToPlanet(embo,luke);
         planet.getMap();
+        planet.removeJedi(planet,vader);
+        planet.getMap();
+        embo.getMap();
     }
 
 }

@@ -61,6 +61,6 @@ public class Jedi {
                 ", rank " + rank +
                 ", age " + age +
                 ", colorSaber " + colorSaber +
-                " and  strength " + strength;
+                " and  strength " + strength + "\n";
     }
 }

@@ -20,9 +20,14 @@ public class Planet {
     public HashMap<Planet, List<Jedi>> getMap() {
         map.forEach((k,v) -> {
             System.out.println( k + "Jedis");
-            System.out.println("\n"+ v);
+            System.out.println("\n"+ v +"\n");
         });
         return map;
+    }
+    public void removeJedi(Planet planet, Jedi jedi){
+        map.forEach((k,v)->{
+            v.remove(jedi);
+        });
     }
 
     public void addJediToPlanet(Planet planet, Jedi jedi) {
