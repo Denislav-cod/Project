@@ -4,11 +4,11 @@ import java.util.*;
 
 public class Planet {
     private String name;
-    private HashMap<Planet, List<Jedi>> map;
+    private Map<Planet, List<Jedi>> map;
 
     public Planet(String name) {
         this.name = name;
-        this.map = new HashMap<Planet, List<Jedi>>();
+        this.map = new HashMap<>();
     }
 
     public String getName() {
@@ -19,7 +19,7 @@ public class Planet {
         this.name = name;
     }
 
-    public HashMap<Planet, List<Jedi>> getMap() {
+    public Map<Planet, List<Jedi>> getMap() {
         map.forEach((k, v) -> {
             System.out.println(k + "Jedis");
             System.out.println("\n" + v + "\n");
@@ -35,15 +35,12 @@ public class Planet {
 
     public void addJediToPlanet(Planet planet, Jedi jedi) {
         List<Jedi> jedis = map.get(planet);
-
-        // if list does not exist create it
-        if (jedis == null) {
+        if (!map.containsValue(jedis)) {
             jedis = new ArrayList<Jedi>();
             jedis.add(jedi);
             map.put(planet, jedis);
         } else {
-            // add if item is not already in list
-            if (!jedis.contains(jedi)) jedis.add(jedi);
+            jedis.add(jedi);
         }
     }
 
