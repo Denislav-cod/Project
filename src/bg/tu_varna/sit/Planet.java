@@ -2,6 +2,7 @@ package bg.tu_varna.sit;
 
 import java.util.*;
 
+
 public class Planet {
     private String name;
     private Map<Planet, List<Jedi>> map;
@@ -19,12 +20,15 @@ public class Planet {
         this.name = name;
     }
 
-    public Map<Planet, List<Jedi>> getMap() {
+    public String getMap() {
+        StringBuilder sb = new StringBuilder();
         map.forEach((k, v) -> {
-            System.out.println(k + "Jedis");
-            System.out.println("\n" + v + "\n");
+            for(Jedi jedi  : v){
+               sb.append(k.getName().toString() + jedi.toString());
+               sb.append(System.lineSeparator());
+            }
         });
-        return map;
+        return sb.toString().trim();
     }
 
     public void removeJedi(Planet planet, Jedi jedi) {
@@ -46,8 +50,15 @@ public class Planet {
 
     @Override
     public String toString() {
-        return "Planet" +
-                " with name " + name + " and population of ";
+        StringBuilder sb = new StringBuilder();
+        map.forEach((k, v) -> {
+            sb.append("Planet " + k.getName() + " ");
+            for(Jedi jedi  : v){
+                sb.append( jedi.toString());
+            }
+            sb.append(System.lineSeparator());
+        });
+        return sb.toString().trim();
     }
 
 }
