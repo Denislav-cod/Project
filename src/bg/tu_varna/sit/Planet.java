@@ -21,8 +21,13 @@ public class Planet {
     }
 
     public void removeJedi(Jedi jedi) {
+        if(!this.jedis.contains(jedi)){
+            throw new DoesntExist("This jedi doesn't exist on this planet");
+        }else{
         this.jedis.remove(jedi);
-        System.out.println("Success Delete");
+        System.out.println("Successfully Deleted Jedi");
+        }
+
     }
 
 
