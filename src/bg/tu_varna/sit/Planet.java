@@ -23,27 +23,12 @@ public class Planet {
     public void removeJedi(Jedi jedi) {
         this.jedis.remove(jedi);
         System.out.println("Success Delete");
-    /*    map.forEach((k, v) -> {
-            v.remove(jedi);
-        });*/
     }
 
 
     public void addJediToPlanet(Jedi jedi) {
-        /*List<Jedi> jedis = map.get(planet);
-        if (map.containsKey(planet.getName())) {
-            throw new CreatePlanet("First create planet with this NAME");
-        } else {
-            if (!map.containsValue(jedis)) {
-                jedis = new ArrayList<>();
-                jedis.add(jedi);
-                map.put(planet, jedis);
-            } else {
-                jedis.add(jedi);
-            }
-        }*/
-        if (jedis.contains(jedi)) {
-            throw new AlreadyTaken("This jedi already exists on this planet");
+             if (jedis.contains(jedi)) {
+            throw new AlreadyExist("This jedi already exists on this planet");
         } else {
             this.jedis.add(jedi);
         }
