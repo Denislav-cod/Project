@@ -1,6 +1,8 @@
 package bg.tu_varna.sit;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Jedi {
     private String name;
@@ -19,7 +21,6 @@ public class Jedi {
             "GRAND_MASTER"
     };
 
-
     public Jedi(String name, String rank, int age, String colorSaber, double strength) {
         this.name = name;
         this.rank = rank;
@@ -35,15 +36,22 @@ public class Jedi {
     public void setName(String name) {
         this.name = name;
     }
-    public String getRanks(){
+
+    public String getRanks() {
         String ranks = null;
-
-            if(Arrays.stream(ranking).anyMatch(rank::equals)){
-                ranks = rank;
-            }else{
-                throw new IncorectValue("Wrong rank or empty value");
-            }
-
+        if(Arrays.asList(ranking).contains(rank))
+        {
+            ranks = rank;
+        }else {
+            throw new IncorectValue("Wrong rank or empty value");
+        }
+        /*String ranks;
+        if (Arrays.stream(ranking).anyMatch(rank::equals)) {
+            ranks = rank;
+        } else {
+            throw new IncorectValue("Wrong rank or empty value");
+        }
+*/
         return ranks;
     }
 
@@ -72,8 +80,17 @@ public class Jedi {
         this.strength = strength;
     }
 
-    public void promoteJedi(){
+    public void promoteJedi() {
+        for(int i=0; i < ranking.length;i++){
+            if(ranking[i] == getRanks()){
+                i++;
+                this.rank = ranking[i];
+            }
+        }
+    }
 
+    public String getMostUsedColorSaber() {
+        return null;
     }
 
 

@@ -5,11 +5,11 @@ import java.util.*;
 
 public class Planet {
     private String name;
-    private Map<Planet, List<Jedi>> map;
+    private List<Jedi> jedis;
 
     public Planet(String name) {
         this.name = name;
-        this.map = new HashMap<>();
+        this.jedis = new ArrayList<>();
     }
 
     public String getName() {
@@ -20,44 +20,42 @@ public class Planet {
         this.name = name;
     }
 
-    public String getMap() {
-        StringBuilder sb = new StringBuilder();
-        map.forEach((k, v) -> {
-            for(Jedi jedi  : v){
-               sb.append(k.getName().toString() + jedi.toString());
-               sb.append(System.lineSeparator());
-            }
-        });
-        return sb.toString().trim();
-    }
-
-    public void removeJedi(Planet planet, Jedi jedi) {
-        map.forEach((k, v) -> {
+    public void removeJedi(Jedi jedi) {
+        this.jedis.remove(jedi);
+        System.out.println("Success Delete");
+    /*    map.forEach((k, v) -> {
             v.remove(jedi);
-        });
+        });*/
     }
 
-    public void addJediToPlanet(Planet planet, Jedi jedi) {
-        List<Jedi> jedis = map.get(planet);
-        if (!map.containsValue(jedis)) {
-            jedis = new ArrayList<Jedi>();
-            jedis.add(jedi);
-            map.put(planet, jedis);
+
+    public void addJediToPlanet(Jedi jedi) {
+        /*List<Jedi> jedis = map.get(planet);
+        if (map.containsKey(planet.getName())) {
+            throw new CreatePlanet("First create planet with this NAME");
         } else {
-            jedis.add(jedi);
+            if (!map.containsValue(jedis)) {
+                jedis = new ArrayList<>();
+                jedis.add(jedi);
+                map.put(planet, jedis);
+            } else {
+                jedis.add(jedi);
+            }
+        }*/
+        if (jedis.contains(jedi)) {
+            throw new AlreadyTaken("This jedi already exists on this planet");
+        } else {
+            this.jedis.add(jedi);
         }
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        map.forEach((k, v) -> {
-            sb.append("Planet " + k.getName() + " ");
-            for(Jedi jedi  : v){
-                sb.append( jedi.toString());
-            }
-            sb.append(System.lineSeparator());
-        });
+        sb.append(getName() + System.lineSeparator());
+        for (Jedi jedi : jedis) {
+            sb.append(jedi.toString());
+        }
         return sb.toString().trim();
     }
 
