@@ -42,7 +42,7 @@ public class Jedi {
         {
             ranks = rank;
         }else {
-            throw new IncorectValue("Wrong rank or empty value");
+            throw new throwException("You have type wrong rank");
         }
         return ranks;
     }
@@ -84,10 +84,6 @@ public class Jedi {
                 }
             }
         }
-    }
-
-    public String getMostUsedColorSaber() {
-        return null;
     }
 
 

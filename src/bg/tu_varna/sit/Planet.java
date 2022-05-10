@@ -20,23 +20,56 @@ public class Planet {
         this.name = name;
     }
 
-    public void removeJedi(Jedi jedi) {
-        if(!this.jedis.contains(jedi)){
-            throw new DoesntExist("This jedi doesn't exist on this planet");
-        }else{
-        this.jedis.remove(jedi);
-        System.out.println("Successfully Deleted Jedi");
-        }
-
-    }
-
-
     public void addJediToPlanet(Jedi jedi) {
              if (jedis.contains(jedi)) {
-            throw new AlreadyExist("This jedi already exists on this planet");
+            throw new throwException("This jedi already exists on this planet");
         } else {
             this.jedis.add(jedi);
         }
+    }
+
+    public void removeJedi(Jedi jedi) {
+        if(!this.jedis.contains(jedi)){
+            throw new throwException("This jedi doesn't exist on this planet or he is already deleted");
+        }else{
+            this.jedis.remove(jedi);
+            System.out.println("Successfully Deleted Jedi");
+        }
+
+    }
+// Need to be improved
+    public void getMostUsedColorSaber() {
+      List<String> colors = new ArrayList<>();
+      String mostCommon = null;
+      int cnt = 0;
+      for(Jedi jedi:jedis){
+          colors.add(jedi.getColorSaber());
+          for (String color: colors){
+                if(cnt == 0){
+                    cnt++;
+                    mostCommon = jedi.getColorSaber();
+                }else if (colors.size() > cnt){
+                    cnt ++;
+                    mostCommon = jedi.getColorSaber();
+                }
+          }
+      }
+      System.out.println(mostCommon);
+    }
+
+    public void getStrongestJedi(){
+        String name = null;
+        double cnt = 0;
+        for(Jedi jedi : jedis){
+            if(cnt == 0){
+                cnt = jedi.getStrength();
+                name = jedi.getName();
+            }else if(jedi.getStrength() > cnt){
+                cnt = jedi.getStrength();
+                name = jedi.getName();
+            }
+        }
+        System.out.println(name + " " +cnt);
     }
 
     @Override
