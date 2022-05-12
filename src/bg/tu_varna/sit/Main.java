@@ -14,7 +14,9 @@ public class Main {
         Planet planet = new Planet("Corusant");
         luke.promoteJedi();
         vader.promoteJedi();
-        vader.promoteJedi();
+        luke.demoteJedi();
+        luke.demoteJedi();
+        luke.demoteJedi();
         System.out.println(luke);
         planet.addJediToPlanet(vader);
         planet.addJediToPlanet(luke);

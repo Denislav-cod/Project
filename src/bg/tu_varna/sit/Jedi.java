@@ -73,14 +73,27 @@ public class Jedi {
     }
 
     public void promoteJedi() {
-        for(int i=0; i < ranking.length;i++){
-            if(ranking[i] == getRanks()){
-                try {
-                    i++;
+        for(int i=0; i < ranking.length;i++) {
+            if (ranking[i] == getRanks()) {
+                i++;
+                if(i <= ranking.length-1) {
                     this.rank = ranking[i];
                     this.strength += (multiplier * strength);
-                }catch (ArrayIndexOutOfBoundsException e){
-                    System.out.println("This is the max rank of Jedi");
+                }else{
+                    throw new throwException("This jedi already achieved the highest rank");
+                }
+            }
+        }
+    }
+    public void demoteJedi() {
+        for(int i=0; i < ranking.length;i++) {
+            if (ranking[i] == getRanks()) {
+                i--;
+                if(i == -1) {
+                    throw new throwException("This jedi already achieved the lowest rank");
+                }else{
+                    this.rank = ranking[i];
+                    this.strength -= (multiplier * strength);
                 }
             }
         }
