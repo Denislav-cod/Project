@@ -1,7 +1,9 @@
 package bg.tu_varna.sit;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 import java.util.*;
-
+@XmlType(propOrder = {"name", "ranks", "age", "colorSaber", "strength"})
 public class Jedi {
     private String name;
     private String rank;
@@ -20,6 +22,7 @@ public class Jedi {
     };
     private double multiplier = 20.00;
 
+    public Jedi(){}
     public Jedi(String name, String rank, int age, String colorSaber, double strength) {
         this.name = name;
         this.rank = rank;
@@ -27,7 +30,7 @@ public class Jedi {
         this.colorSaber = colorSaber;
         this.strength = strength;
     }
-
+@XmlElement
     public String getName() {
         return name;
     }
@@ -35,7 +38,7 @@ public class Jedi {
     public void setName(String name) {
         this.name = name;
     }
-
+    @XmlElement
     public String getRanks() {
         String ranks = null;
         if(Arrays.asList(ranking).contains(rank))
@@ -47,7 +50,7 @@ public class Jedi {
         return ranks;
     }
 
-
+    @XmlElement
     public int getAge() {
         return age;
     }
@@ -55,7 +58,7 @@ public class Jedi {
     public void setAge(int age) {
         this.age = age;
     }
-
+    @XmlElement
     public String getColorSaber() {
         return colorSaber;
     }
@@ -63,7 +66,7 @@ public class Jedi {
     public void setColorSaber(String colorSaber) {
         this.colorSaber = colorSaber;
     }
-
+@XmlElement
     public double getStrength() {
         return strength;
     }

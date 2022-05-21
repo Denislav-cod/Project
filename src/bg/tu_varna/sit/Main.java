@@ -1,5 +1,9 @@
 package bg.tu_varna.sit;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
 import java.util.*;
 
 public class Main {
@@ -30,6 +34,19 @@ public class Main {
         System.out.println(embo);
         planet.getMostUsedColorSaber();
         planet.getStrongestJedi();
+        PlanetList list = new PlanetList();
+        list.add(planet);
+        list.add(embo);
+
+        File file = new File("universe.xml");
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(PlanetList.class);
+            Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.marshal(list, file);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

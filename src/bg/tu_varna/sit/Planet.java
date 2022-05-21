@@ -1,11 +1,19 @@
 package bg.tu_varna.sit;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import java.util.*;
 
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Planet {
     private String name;
+    @XmlElement(name = "jedi")
     private List<Jedi> jedis;
+
+    public Planet(){
+    }
 
     public Planet(String name) {
         this.name = name;
@@ -37,7 +45,7 @@ public class Planet {
         }
 
     }
-// Need to be improved
+// Need to be improved check the documentation
     public void getMostUsedColorSaber() {
       List<String> colors = new ArrayList<>();
       String mostCommon = null;
