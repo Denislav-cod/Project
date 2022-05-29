@@ -23,6 +23,11 @@ public class Main {
             kamino.getStrongestJedi();
             naboo.addJediToPlanet(obi);
             naboo.addJediToPlanet(luke);
+            naboo.addJediToPlanet(greg);
+            luke.promoteJedi();
+            vader.demoteJedi();
+            kamino.getStrongestJedi();
+            naboo.getMostUsedColorSaber();
             Universe list = new Universe();
             list.add(kamino);
             list.add(naboo);
@@ -32,6 +37,7 @@ public class Main {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(list, file);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            list.getNameAndPlanet(luke);
             list.getJedisFromTwoPlanets("Naboo","Kamino");
            System.out.println(jaxbUnmarshaller.unmarshal(file).toString());
         } catch (JAXBException e) {

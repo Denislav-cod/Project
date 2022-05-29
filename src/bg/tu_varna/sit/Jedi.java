@@ -90,7 +90,7 @@ public class Jedi {
         this.strength = strength;
     }
 
-    public void promoteJedi(Double multiplier) {
+    public void promoteJedi() {
         for (int i = 0; i < ranking.length; i++) {
             if (ranking[i].equals(getRank())) {
                 i++;
@@ -104,7 +104,7 @@ public class Jedi {
         }
     }
 
-    public void demoteJedi(Double multiplier) {
+    public void demoteJedi() {
         for (int i = 0; i < ranking.length; i++) {
             if (ranking[i] == getRank()) {
                 i--;
