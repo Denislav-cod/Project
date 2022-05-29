@@ -1,16 +1,19 @@
 package bg.tu_varna.sit;
 
+import bg.tu_varna.sit.Exceptions.RankException;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 import java.util.*;
-@XmlType(propOrder = {"name", "ranks", "age", "colorSaber", "strength"})
+
+@XmlType(propOrder = {"name", "rank", "age", "colorSaber", "strength"})
 public class Jedi {
     private String name;
     private String rank;
     private int age;
     private String colorSaber;
     private double strength;
-    private String[] ranking = {
+    protected String[] ranking = {
             "YOUNGLING",
             "INITIATE",
             "PADAWAN",
@@ -20,9 +23,11 @@ public class Jedi {
             "BATTLE_MASTER",
             "GRAND_MASTER"
     };
-    private double multiplier = 20.00;
+    private double multiplier = 2;
 
-    public Jedi(){}
+    public Jedi() {
+    }
+
     public Jedi(String name, String rank, int age, String colorSaber, double strength) {
         this.name = name;
         this.rank = rank;
@@ -30,7 +35,8 @@ public class Jedi {
         this.colorSaber = colorSaber;
         this.strength = strength;
     }
-@XmlElement
+
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -38,16 +44,23 @@ public class Jedi {
     public void setName(String name) {
         this.name = name;
     }
+
     @XmlElement
-    public String getRanks() {
+    public String getRank() {
         String ranks = null;
-        if(Arrays.asList(ranking).contains(rank))
-        {
-            ranks = rank;
-        }else {
-            throw new throwException("You have type wrong rank");
+        if (Arrays.asList(ranking).contains(rank)) {
+            ranks = this.rank;
+            this.rank = ranks;
+        } else {
+            throw new RankException("You have type wrong rank");
         }
-        return ranks;
+        return rank;
+
+    }
+
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     @XmlElement
@@ -58,6 +71,7 @@ public class Jedi {
     public void setAge(int age) {
         this.age = age;
     }
+
     @XmlElement
     public String getColorSaber() {
         return colorSaber;
@@ -66,7 +80,8 @@ public class Jedi {
     public void setColorSaber(String colorSaber) {
         this.colorSaber = colorSaber;
     }
-@XmlElement
+
+    @XmlElement
     public double getStrength() {
         return strength;
     }
@@ -75,26 +90,27 @@ public class Jedi {
         this.strength = strength;
     }
 
-    public void promoteJedi() {
-        for(int i=0; i < ranking.length;i++) {
-            if (ranking[i] == getRanks()) {
+    public void promoteJedi(Double multiplier) {
+        for (int i = 0; i < ranking.length; i++) {
+            if (ranking[i].equals(getRank())) {
                 i++;
-                if(i <= ranking.length-1) {
+                if (i <= ranking.length - 1) {
                     this.rank = ranking[i];
                     this.strength += (multiplier * strength);
-                }else{
-                    throw new throwException("This jedi already achieved the highest rank");
+                } else {
+                    throw new RankException("This jedi already achieved the highest rank");
                 }
             }
         }
     }
-    public void demoteJedi() {
-        for(int i=0; i < ranking.length;i++) {
-            if (ranking[i] == getRanks()) {
+
+    public void demoteJedi(Double multiplier) {
+        for (int i = 0; i < ranking.length; i++) {
+            if (ranking[i] == getRank()) {
                 i--;
-                if(i == -1) {
-                    throw new throwException("This jedi already achieved the lowest rank");
-                }else{
+                if (i == -1) {
+                    throw new RankException("This jedi already achieved the lowest rank");
+                } else {
                     this.rank = ranking[i];
                     this.strength -= (multiplier * strength);
                 }
@@ -106,7 +122,7 @@ public class Jedi {
     @Override
     public String toString() {
         return "Jedi with name " + name +
-                ", rank " + getRanks() +
+                ", rank " + rank +
                 ", age " + age +
                 ", colorSaber " + colorSaber +
                 " and  strength " + strength + "\n";

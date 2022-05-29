@@ -3,50 +3,41 @@ package bg.tu_varna.sit;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import java.io.File;
-import java.util.*;
+import javax.xml.bind.Unmarshaller;
+import java.io.*;
 
 public class Main {
 
     public static void main(String[] args) {
-        Jedi vader = new Jedi("Vader", "BATTLE_MASTER", 12, "light", 1999.999);
-        Jedi luke = new Jedi("luke", "PADAWAN", 2, "black", 1653.5124);
-        Jedi obi = new Jedi("obi", "PADAWAN", 2, "green", 1653.5124);
-        Jedi bob = new Jedi("bob", "PADAWAN", 2, "green", 5000000.5124);
-        Jedi greg = new Jedi("greg", "PADAWAN", 2, "green", 1653.5124);
-        Planet embo = new Planet("Embo");
-        Planet planet = new Planet("Corusant");
-        luke.promoteJedi();
-        vader.promoteJedi();
-        luke.demoteJedi();
-        luke.demoteJedi();
-        luke.demoteJedi();
-        System.out.println(luke);
-        planet.addJediToPlanet(vader);
-        planet.addJediToPlanet(luke);
-        planet.addJediToPlanet(obi);
-        planet.addJediToPlanet(bob);
-        planet.addJediToPlanet(greg);
-        embo.addJediToPlanet( obi);
-        embo.addJediToPlanet( luke);
-        System.out.println(planet);
-        embo.removeJedi(luke);
-        System.out.println(embo);
-        planet.getMostUsedColorSaber();
-        planet.getStrongestJedi();
-        PlanetList list = new PlanetList();
-        list.add(planet);
-        list.add(embo);
-
-        File file = new File("universe.xml");
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(PlanetList.class);
+            Jedi vader = new Jedi("Vader", "BATTLE_MASTER", 12, "light", 1);
+            Jedi anakin = new Jedi("Anakin", "BATTLE_MASTER", 25, "light", 2);
+            Jedi luke = new Jedi("Luke", "PADAWAN", 2, "black", 3);
+            Jedi obi = new Jedi("Obi", "YOUNGLING", 2, "green", 4);
+            Jedi bob = new Jedi("Bob", "MASTER", 2, "green", 5);
+            Jedi greg = new Jedi("Green", "PADAWAN", 3, "green", 6);
+            Planet naboo = new Planet("Naboo");
+            Planet kamino = new Planet("Kamino");
+            kamino.addJediToPlanet(vader);
+            kamino.addJediToPlanet(anakin);
+            kamino.getStrongestJedi();
+            naboo.addJediToPlanet(obi);
+            naboo.addJediToPlanet(luke);
+            Universe list = new Universe();
+            list.add(kamino);
+            list.add(naboo);
+            File file = new File("universe.xml");
+            JAXBContext jaxbContext = JAXBContext.newInstance(Universe.class);
             Marshaller marshaller = jaxbContext.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.marshal(list, file);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            list.getJedisFromTwoPlanets("Naboo","Kamino");
+           System.out.println(jaxbUnmarshaller.unmarshal(file).toString());
         } catch (JAXBException e) {
             e.printStackTrace();
         }
 
     }
-
 }
+
