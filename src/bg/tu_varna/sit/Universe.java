@@ -1,63 +1,85 @@
 package bg.tu_varna.sit;
 
+import bg.tu_varna.sit.Exceptions.JediException;
 import bg.tu_varna.sit.Exceptions.PlanetException;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlElement;
 import java.util.*;
 
-@XmlRootElement(name = "planet")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Universe {
-    @XmlElement(name = "planets")
-    private List<Planet> list;
+    private List<Planet> planet;
+    private List<Jedi> jedi;
+    private Map<String,List<Jedi>> universe;
 
     public Universe() {
-        list = new ArrayList<Planet>();
+        this.universe = new HashMap<>();
+        this.planet = new ArrayList<>();
+        this.jedi = new ArrayList<>();
     }
 
-    public void add(Planet p) {
-        list.add(p);
-    }
-    public void getSortPlanetName() {
-            this.list.sort(Comparator.comparing(Planet::getName));
-            for(Planet p : this.list){
-            System.out.println(p.getName());}
+    public void addPlanet(String p){
+        Planet planet = new Planet(p);
+        this.planet.add(planet);
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (Planet pl : list) {
-            sb.append(pl.toString());
-            sb.append(System.lineSeparator());
+    public void createJedi(String p,String name, String rank, int age, String color, double strength) {
+        Jedi jedi = new Jedi(name,rank,age,color,strength);
+        List<String> planetName = new ArrayList<>();
+        List<String> jediName = new ArrayList<>();
+        for (Planet n : this.planet) {
+            planetName.add(n.getName());
         }
-        return sb.toString().trim();
-    }
-
-    public void getNameAndPlanet(Jedi jedi) {
-        for (Planet l : list) {
-            if (l.jedis.contains(jedi)) {
-                System.out.println(l.getName() + " - " + jedi.toString());
+        for (List<Jedi> j : universe.values()) {
+            for(Jedi jed : j ){
+                jediName.add(jed.getName());
             }
         }
-
-    }
-    public void getJedisFromTwoPlanets(String p1, String p2){
-        Map<String, List<Jedi>> pName = new HashMap<>();
-        for(Planet p : list){
-            pName.put(p.getName(),p.jedis);
+        if (planetName.contains(p)) {
+            if (!this.universe.containsValue(jedi)) {
+                if (!jediName.contains(name)) {
+                    this.jedi.add(jedi);
+                    this.jedi.sort(Comparator.comparing(Jedi::getName));
+                    this.universe.put(p, this.jedi);
+                } else {
+                    throw new JediException("This jedi already exist on this planet");
+                }
+            } else {
+                throw new JediException("This jedi already exist on other planet");
+            }
+        } else {
+            System.out.println("this planet not exist");
         }
-        StringBuilder sb = new StringBuilder();
-        if(pName.containsKey(p1) && pName.containsKey(p2)){
-            sb.append(pName.get(p1).toString()).append(System.lineSeparator());
-            sb.append(pName.get(p2).toString());
-            System.out.println(sb.toString().trim());
-        }else {
-            throw new PlanetException("This planet does not exists");
-        }
     }
 
+    public void removeJedi(String plName,String name){
+        List<String> planetName = new ArrayList<>();
+        for (Planet n : this.planet) {
+            planetName.add(n.getName());
+        }
+        List<String> jediName = new ArrayList<>();
+        for (List<Jedi> j : universe.values()) {
+            for(Jedi jed : j ){
+                jediName.add(jed.getName());
+            }
+        }
+        if(!planetName.contains(plName)) {
+            throw new PlanetException("This planet not exist");
+        }
+        if (!jediName.contains(name)){
+            throw new JediException("This jedi already deleted");
+        }
+        this.universe.remove(plName, this.jedi.removeIf(j -> j.getName().equals(name)));
+    }
+
+    public void iterate(String plName) {
+        List<String> name = new ArrayList<>();
+        name.addAll(universe.keySet());
+        if (name.contains(plName)) {
+            universe.forEach((k, v) -> {
+                System.out.println("Key" + k);
+                for (Jedi n : v) {
+                    System.out.println(n.getName());
+                }
+            });
+        }
+    }
 }
