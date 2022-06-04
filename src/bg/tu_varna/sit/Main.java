@@ -9,7 +9,7 @@ import java.io.*;
 public class Main {
 
     public static void main(String[] args) {
-       /* try {
+        try {
             Jedi vader = new Jedi("Vader", "BATTLE_MASTER", 12, "light", 1);
             Jedi anakin = new Jedi("Anakin", "BATTLE_MASTER", 25, "light", 2);
             Jedi luke = new Jedi("Luke", "PADAWAN", 2, "black", 3);
@@ -43,17 +43,7 @@ public class Main {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-*/
 
-        Universe universe = new Universe();
-        Planet naboo = new Planet("Naboo");
-        Planet kamino = new Planet("Kamino");
-        universe.addPlanet("Naboo");
-        universe.createJedi("Naboo", "Obi", "BM", 12, "white", 12.12);
-        universe.createJedi("Naboo", "Anakin", "GM", 6, "blue", 6.12);
-        universe.iterate("Naboo");
-        universe.removeJedi("Naboo","Obi");
-        universe.iterate("Naboo");
     }
 }
 
