@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<planet>
+<universe>
     <planets>
         <name>Kamino</name>
-        <jedi>
-            <name>Anakin</name>
+        <jedis>
+            <planet>Kamino</planet>
+            <name>Obi</name>
             <rank>BATTLE_MASTER</rank>
-            <age>25</age>
-            <colorSaber>light</colorSaber>
-            <strength>2.0</strength>
-        </jedi>
-        <jedi>
-            <name>Vader</name>
-            <rank>BATTLE_MASTER</rank>
+            <age>34</age>
+            <colorSaber>blue</colorSaber>
+            <strength>150.0</strength>
+        </jedis>
+        <jedis>
+            <planet>Kamino</planet>
+            <name>Luke</name>
+            <rank>KNIGHT_ASPIRANT</rank>
             <age>12</age>
-            <colorSaber>light</colorSaber>
-            <strength>1.0</strength>
-        </jedi>
+            <colorSaber>blue</colorSaber>
+            <strength>3693.0</strength>
+        </jedis>
     </planets>
     <planets>
         <name>Naboo</name>
-        <jedi>
-            <name>Luke</name>
-            <rank>PADAWAN</rank>
-            <age>2</age>
-            <colorSaber>black</colorSaber>
-            <strength>3.0</strength>
-        </jedi>
-        <jedi>
-            <name>Obi</name>
-            <rank>YOUNGLING</rank>
-            <age>2</age>
+        <jedis>
+            <planet>Naboo</planet>
+            <name>Yoda</name>
+            <rank>BATTLE_MASTER</rank>
+            <age>150</age>
             <colorSaber>green</colorSaber>
-            <strength>4.0</strength>
-        </jedi>
+            <strength>-1500.0</strength>
+        </jedis>
     </planets>
-</planet>
+    <plNames>Kamino</plNames>
+    <plNames>Naboo</plNames>
+</universe>
